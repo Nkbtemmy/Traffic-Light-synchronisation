@@ -3,9 +3,12 @@ package main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class TrafficLightControl {
-    public String trafficLightInGreen;
+    public String trafficLightInGreenPosition;
     private TrafficLight leftTrafficLight, rightTrafficLight, backTrafficLight, frontTrafficLight;
+    private LinkedBlockingQueue<TrafficLight> trafficLightQueue = new LinkedBlockingQueue<>();
 
 
 
@@ -15,33 +18,106 @@ public class TrafficLightControl {
         this.rightTrafficLight = rightTrafficLight;
         this.leftTrafficLight = leftTrafficLight;
 
+        trafficLightQueue.add(backTrafficLight);
+        trafficLightQueue.add(frontTrafficLight);
+        trafficLightQueue.add(rightTrafficLight);
+        trafficLightQueue.add(leftTrafficLight);
+
         this.leftTrafficLight.statusProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
                 System.out.println("status change");
+
+                switch (leftTrafficLight.getStatus()){
+                    case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
+                        leftTrafficLight.turnYellow();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_RED:{
+                        leftTrafficLight.turnGreen();
+                        control();
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
             }
         });
         this.rightTrafficLight.statusProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
                 System.out.println("status change");
+                switch (rightTrafficLight.getStatus()){
+                    case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
+                        rightTrafficLight.turnYellow();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_RED:{
+                        rightTrafficLight.turnRed();
+                        control();
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
             }
         });
         this.frontTrafficLight.statusProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
                 System.out.println("status change");
+                switch (frontTrafficLight.getStatus()){
+                    case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
+                        frontTrafficLight.turnYellow();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_RED:{
+                        frontTrafficLight.turnRed();
+                        control();
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
             }
         });
         this.backTrafficLight.statusProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
                 System.out.println("status change");
+                switch (backTrafficLight.getStatus()){
+                    case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
+                        backTrafficLight.turnYellow();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_RED:{
+                        backTrafficLight.turnRed();
+                        control();
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
             }
         });
 
-
+        control();
     }
+
+    private void control() {
+        TrafficLight currentTrafficRight = trafficLightQueue.poll();
+        trafficLightQueue.add(currentTrafficRight);
+
+        this.trafficLightInGreenPosition = currentTrafficRight.getPosition();
+
+        currentTrafficRight.setStatus(C.TRAFFIC_LIGHT_IS_IN_GREEN);
+        currentTrafficRight.turnGreen();
+    }
+
     public TrafficLight getGreenTrafficLight(){
         return null;
     }

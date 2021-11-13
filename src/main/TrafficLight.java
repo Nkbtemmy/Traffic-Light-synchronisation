@@ -43,4 +43,12 @@ public class TrafficLight {
     public void setStatus(String status) {
         this.status.setValue(status);
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }

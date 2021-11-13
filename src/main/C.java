@@ -4,6 +4,12 @@ public interface C {
     int ROAD_WIDTH = 1000;
     int ROAD_HEIGHT = 723;
 
+    int CAR_COMING_TIME = 5;
+    int CAR_CONTINUE_TIME = 5;
+
+    int TRAFFIC_LIGHT_TIME_IN_GREEN = 10;
+    int TRAFFIC_LIGHT_TIME_IN_YELLOW = 3;
+
     String LEFT_RED = "LEFT_RED";
     String LEFT_GREEN = "LEFT_GREEN";
     String LEFT_YELLOW = "LEFT_YELLOW";
