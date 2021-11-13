@@ -3,10 +3,11 @@ package main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
+import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrafficLightControl {
-    public String trafficLightInGreenPosition;
+    private static String trafficLightInGreenPosition;
     private TrafficLight leftTrafficLight, rightTrafficLight, backTrafficLight, frontTrafficLight;
     private LinkedBlockingQueue<TrafficLight> trafficLightQueue = new LinkedBlockingQueue<>();
 
@@ -34,7 +35,7 @@ public class TrafficLightControl {
                         break;
                     }
                     case C.TRAFFIC_LIGHT_IS_IN_RED:{
-                        leftTrafficLight.turnGreen();
+                        leftTrafficLight.turnRed();
                         control();
                         break;
                     }
@@ -112,14 +113,28 @@ public class TrafficLightControl {
         TrafficLight currentTrafficRight = trafficLightQueue.poll();
         trafficLightQueue.add(currentTrafficRight);
 
-        this.trafficLightInGreenPosition = currentTrafficRight.getPosition();
+        trafficLightInGreenPosition = currentTrafficRight.getPosition();
 
         currentTrafficRight.setStatus(C.TRAFFIC_LIGHT_IS_IN_GREEN);
         currentTrafficRight.turnGreen();
     }
 
-    public TrafficLight getGreenTrafficLight(){
-        return null;
+    public static boolean carCanItPass(String comingFromDirection){
+        if(Objects.equals(comingFromDirection, C.CAR_FROM_LEFT) && trafficLightInGreenPosition == C.LEFT_TRAFFIC_LIGHT){
+            return true;
+        }
+        else if(comingFromDirection == C.CAR_FROM_FRONT && trafficLightInGreenPosition == C.FRONT_TRAFFIC_LIGHT){
+            return true;
+        }
+        else if(comingFromDirection == C.CAR_FROM_BACK && trafficLightInGreenPosition == C.BACK_TRAFFIC_LIGHT){
+            return true;
+        }
+        else if(comingFromDirection == C.CAR_FROM_RIGHT && trafficLightInGreenPosition == C.RIGHT_TRAFFIC_LIGHT){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 

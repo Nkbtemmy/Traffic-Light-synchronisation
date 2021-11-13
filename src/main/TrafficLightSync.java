@@ -25,9 +25,17 @@ public class TrafficLightSync extends Application {
 
         tools = new VBox();
         addCarFromBack = new Button("Add car from back");
+        addCarFromBack.setId(C.ADD_CAR_FROM_BACK_BUTTON_ID);
+
         addCarFromFront = new Button("Add car from Front");
+        addCarFromFront.setId(C.ADD_CAR_FROM_FRONT_BUTTON_ID);
+
         addCarFromLeft = new Button("Add car from left");
+        addCarFromLeft.setId(C.ADD_CAR_FROM_LEFT_BUTTON_ID);
+
         addCarFromRight = new Button("Add car from right");
+        addCarFromRight.setId(C.ADD_CAR_FROM_RIGHT_BUTTON_ID);
+
         tools.getChildren().addAll(addCarFromBack, addCarFromFront, addCarFromLeft, addCarFromRight);
 
         view = new HBox();

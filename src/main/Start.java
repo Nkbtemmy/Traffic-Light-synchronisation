@@ -35,9 +35,9 @@ public class Start extends Thread{
         this.addCarFromLeft.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                ((Button)event.getSource()).getId();
                 Car car = new Car(C.CAR_FROM_LEFT);
-                Thread runCar = new Thread(new CarComing(car));
-                runCar.start();
+                car.start();
             }
         });
 
@@ -45,24 +45,21 @@ public class Start extends Thread{
             @Override
             public void handle(ActionEvent event) {
                 Car car = new Car(C.CAR_FROM_RIGHT);
-                Thread runCar = new Thread(new CarComing(car));
-                runCar.start();
+                car.start();
             }
         });
         this.addCarFromFront.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Car car = new Car(C.CAR_FROM_FRONT);
-                Thread runCar = new Thread(new CarComing(car));
-                runCar.start();
+                car.start();
             }
         });
         this.addCarFromBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Car car = new Car(C.CAR_FROM_BACK);
-                Thread runCar = new Thread(new CarComing(car));
-                runCar.start();
+                car.start();
             }
         });;
 

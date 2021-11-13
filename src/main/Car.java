@@ -1,5 +1,7 @@
 package main;
 
+import CarsTasks.CarComing;
+
 public class Car {
     private String comingFromDirection;
 
@@ -13,5 +15,9 @@ public class Car {
 
     public Car(String comingFromDirection){
         this.comingFromDirection = comingFromDirection;
+    }
+    public void start(){
+        Thread coming = new Thread(new CarComing(this));
+        coming.start();
     }
 }
