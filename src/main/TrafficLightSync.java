@@ -54,7 +54,7 @@ public class TrafficLightSync extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        start = new Start(addCarFromBack, addCarFromFront, addCarFromLeft, addCarFromRight);
+        start = new Start(addCarFromBack, addCarFromFront, addCarFromLeft, addCarFromRight, road);
         start.start();
 
 

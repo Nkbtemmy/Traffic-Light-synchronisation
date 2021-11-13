@@ -10,19 +10,19 @@ public interface C {
     int TRAFFIC_LIGHT_TIME_IN_GREEN = 10;
     int TRAFFIC_LIGHT_TIME_IN_YELLOW = 3;
 
-    String LEFT_RED = "LEFT_RED";
+
     String LEFT_GREEN = "LEFT_GREEN";
     String LEFT_YELLOW = "LEFT_YELLOW";
 
-    String RIGHT_RED = "RIGHT_RED";
+
     String RIGHT_GREEN = "RIGHT_GREEN";
     String RIGHT_YELLOW = "RIGHT_YELLOW";
 
-    String FRONT_RED = "FRONT_RED";
+
     String FRONT_GREEN = "FRONT_GREEN";
     String FRONT_YELLOW = "FRONT_YELLOW";
 
-    String BACK_RED = "BACK_RED";
+
     String BACK_GREEN = "BACK_GREEN";
     String BACK_YELLOW = "BACK_YELLOW";
 

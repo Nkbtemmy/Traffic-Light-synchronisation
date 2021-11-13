@@ -2,16 +2,29 @@ package main;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrafficLightControl {
+    private StringProperty generalStatus = new SimpleStringProperty(C.ALL_RED);
     private static String trafficLightInGreenPosition;
     private TrafficLight leftTrafficLight, rightTrafficLight, backTrafficLight, frontTrafficLight;
     private LinkedBlockingQueue<TrafficLight> trafficLightQueue = new LinkedBlockingQueue<>();
 
+    public String getGeneralStatus() {
+        return generalStatus.getValue();
+    }
 
+    public StringProperty generalStatusProperty() {
+        return generalStatus;
+    }
+
+    public void setGeneralStatus(String generalStatus) {
+        this.generalStatus.setValue(generalStatus);
+    }
 
     public TrafficLightControl(TrafficLight leftTrafficLight, TrafficLight rightTrafficLight, TrafficLight backTrafficLight, TrafficLight frontTrafficLight){
         this.backTrafficLight = backTrafficLight;
@@ -32,11 +45,16 @@ public class TrafficLightControl {
                 switch (leftTrafficLight.getStatus()){
                     case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
                         leftTrafficLight.turnYellow();
+                        setGeneralStatus(C.LEFT_YELLOW);
                         break;
                     }
                     case C.TRAFFIC_LIGHT_IS_IN_RED:{
                         leftTrafficLight.turnRed();
                         control();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_GREEN:{
+                        setGeneralStatus(C.LEFT_GREEN);
                         break;
                     }
                     default:{
@@ -52,11 +70,16 @@ public class TrafficLightControl {
                 switch (rightTrafficLight.getStatus()){
                     case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
                         rightTrafficLight.turnYellow();
+                        setGeneralStatus(C.RIGHT_YELLOW);
                         break;
                     }
                     case C.TRAFFIC_LIGHT_IS_IN_RED:{
                         rightTrafficLight.turnRed();
                         control();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_GREEN:{
+                        setGeneralStatus(C.RIGHT_GREEN);
                         break;
                     }
                     default:{
@@ -72,11 +95,16 @@ public class TrafficLightControl {
                 switch (frontTrafficLight.getStatus()){
                     case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
                         frontTrafficLight.turnYellow();
+                        setGeneralStatus(C.FRONT_YELLOW);
                         break;
                     }
                     case C.TRAFFIC_LIGHT_IS_IN_RED:{
                         frontTrafficLight.turnRed();
                         control();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_GREEN:{
+                        setGeneralStatus(C.FRONT_GREEN);
                         break;
                     }
                     default:{
@@ -92,11 +120,16 @@ public class TrafficLightControl {
                 switch (backTrafficLight.getStatus()){
                     case C.TRAFFIC_LIGHT_IS_IN_YELLOW: {
                         backTrafficLight.turnYellow();
+                        setGeneralStatus(C.BACK_YELLOW);
                         break;
                     }
                     case C.TRAFFIC_LIGHT_IS_IN_RED:{
                         backTrafficLight.turnRed();
                         control();
+                        break;
+                    }
+                    case C.TRAFFIC_LIGHT_IS_IN_GREEN:{
+                        setGeneralStatus(C.BACK_GREEN);
                         break;
                     }
                     default:{

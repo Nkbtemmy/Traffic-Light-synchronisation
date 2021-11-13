@@ -2,6 +2,8 @@ package main;
 
 import CarsTasks.CarComing;
 import TraficRightTasks.TurnRed;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,10 +15,12 @@ public class Start extends Thread{
     TrafficLight rightTrafficLight;
     TrafficLight backTrafficLight;
     TrafficLight frontTrafficLight;
+    Road road;
 
     Button addCarFromBack, addCarFromFront, addCarFromLeft, addCarFromRight;
 
-    Start(Button addCarFromBack,Button addCarFromFront,Button addCarFromLeft,Button addCarFromRight){
+    Start(Button addCarFromBack,Button addCarFromFront,Button addCarFromLeft,Button addCarFromRight, Road road){
+        this.road = road;
         this.addCarFromBack = addCarFromBack;
         this.addCarFromFront = addCarFromFront;
         this.addCarFromRight = addCarFromRight;
@@ -61,8 +65,52 @@ public class Start extends Thread{
                 Car car = new Car(C.CAR_FROM_BACK);
                 car.start();
             }
-        });;
+        });
 
 
+        controller.generalStatusProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                switch (controller.getGeneralStatus()){
+                    case C.LEFT_GREEN: {
+                        road.leftGreenUpdate();
+                        break;
+                    }
+                    case C.LEFT_YELLOW:{
+                        road.leftYellowUpdate();
+                        break;
+                    }
+                    case C.RIGHT_GREEN:{
+                        road.rightGreenUpdate();
+                        break;
+                    }
+                    case C.RIGHT_YELLOW:{
+                        road.rightYellowUpdate();
+                        break;
+                    }
+                    case C.FRONT_GREEN:{
+                        road.frontGreenUpdate();
+                        break;
+                    }
+                    case C.FRONT_YELLOW:{
+                        road.frontYellowUpdate();
+                        break;
+                    }
+                    case C.BACK_GREEN:{
+                        road.backGreenUpdate();
+                        break;
+                    }
+                    case C.BACK_YELLOW:{
+                        road.backYellowUpdate();
+                        break;
+                    }
+                    default:{
+                        road.allReadUpdate();
+                        break;
+                    }
+
+                }
+            }
+        });
     }
 }
